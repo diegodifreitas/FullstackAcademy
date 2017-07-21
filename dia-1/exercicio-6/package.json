@@ -1,0 +1,15 @@
+{
+  "name": "exercicio-06",
+  "version": "1.0.0",
+  "description": "Full-Stack Academy",
+  "main": "exercise-06.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Diego Dulval",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
