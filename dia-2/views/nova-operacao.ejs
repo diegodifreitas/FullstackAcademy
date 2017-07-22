@@ -1,8 +1,14 @@
 <% include header %>
-      <h2>Novo operação</h2>
-      <form method="POST">
-        Descrição: <input type="text" name="descricao"><br>
-        Valor: <input type="text" name="valor"><br>
-        <button type="submit">Calcular</button>
-      </form>
-<% include footer %>
+  <h2>Novo operação</h2>
+  <form method="POST">
+    <div class="block">
+      <label>Descrição: </label>
+      <input type="text" name="descricao">
+    </div>
+    <div class="block">
+      <label> Valor:</label>
+      <input type="text" name="valor">
+    </div>
+    <button type="submit">Calcular</button>
+  </form>
+  <% include footer %>

@@ -1,16 +1,29 @@
 <% include header %>
-      <h2>Calculadora</h2>
-      <form method="GET">
-        Valor inicial: <input type="text" name="valorInicial"><br>
-        Taxa a.m.: <input type="text" name="taxa"><br>
-        Quantos meses: <input type="text" name="tempo"><br>
-        <button type="submit">Calcular</button>
-      </form>
+  <h2>Calculadora</h2>
+  
+  <form method="GET">
+    <div class="block">
+      <label>Valor inicial: </label>
+      <input type="text" name="valorInicial" />
+    </div>
+    <div class="block">
+      <label>Taxa a.m.:</label>
+      <input type="text" name="taxa" />
+    </div>
+    <div class="block">
+      <label>Quantos meses: </label>
+      <input type="text" name="tempo" />
+    </div>
 
-      <% if(resultado.calculado){ %>
-        <div class="resultado">
-          <h2>Resultado</h2>
-          <p>R$ <%= resultado.total.toFixed(2) %></p>
-        </div>
-      <% } %>
-<% include footer %>
+    <button type="submit">Calcular</button>
+  </form>
+
+  <% if(resultado.calculado){ %>
+    <div class="resultado">
+      <h2>Resultado</h2>
+      <p>R$
+        <%= resultado.total.toFixed(2) %>
+      </p>
+    </div>
+    <% } %>
+      <% include footer %>
