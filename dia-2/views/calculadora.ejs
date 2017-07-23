@@ -1,6 +1,6 @@
 <% include header %>
   <h2>Calculadora</h2>
-  
+
   <form method="GET">
     <div class="block">
       <label>Valor inicial: </label>
@@ -19,6 +19,25 @@
   </form>
 
   <% if(resultado.calculado){ %>
+    <table>
+      <thead>
+        <th>Mês</th>
+        <th>Valor</th>
+      </thead>
+      <tbody>
+        <% var i = 0 %>
+          <% resultado.valores.map( (x) => { %>
+            <tr>
+              <td>
+                <%= i++ %>
+              </td>
+              <td>
+                <%= x.toFixed(2) %>
+              </td>
+            </tr>
+            <% })  %>
+      </tbody>
+    </table>
     <div class="resultado">
       <h2>Resultado</h2>
       <p>R$

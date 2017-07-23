@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
 
 const MongoClient = require('mongodb').MongoClient
-const mongoUri =  'mongodb://sysdba:12345@my-money-shard-00-00-l9y4l.mongodb.net:27017,my-money-shard-00-01-l9y4l.mongodb.net:27017,my-money-shard-00-02-l9y4l.mongodb.net:27017/<DATABASE>?ssl=true&replicaSet=my-money-shard-0&authSource=admin'
+const mongoUri = 'mongodb://sysdba:12345@my-money-shard-00-00-l9y4l.mongodb.net:27017,my-money-shard-00-01-l9y4l.mongodb.net:27017,my-money-shard-00-02-l9y4l.mongodb.net:27017/<DATABASE>?ssl=true&replicaSet=my-money-shard-0&authSource=admin'
 
 app.use(express.static('public'))
 
@@ -21,19 +21,29 @@ app.get('/', (req, res) => {
   res.render('home')
 })
 
-const calculoJuros = (p, i, n) => p*Math.pow(1+i, n)
+const calculoJuros = (p, i, n) => p * Math.pow(1 + i, n)
 
 app.get('/calculadora', (req, res) => {
   const resultado = {
     calculado: false
   }
-  if(req.query.valorInicial && req.query.taxa && req.query.tempo){
+
+  if (req.query.valorInicial && req.query.taxa && req.query.tempo) {
     resultado.calculado = true
-    resultado.total = calculoJuros(
+
+    const x = parseFloat(req.query.tempo) + 1
+    resultado.valores = Array.from(new Array(x), (x, i) => resultado.total = calculoJuros(
       parseFloat(req.query.valorInicial),
-      parseFloat(req.query.taxa)/100, 
+      parseFloat(req.query.taxa) / 100,
+      i
+    ))
+
+/*     resultado.total = calculoJuros(
+      parseFloat(req.query.valorInicial),
+      parseFloat(req.query.taxa) / 100,
       parseInt(req.query.tempo)
-    )
+    ) */
+    
   }
   res.render('calculadora', { resultado })
 })
@@ -53,11 +63,11 @@ const findAll = (db, collectionName) => {
 
 const insert = (db, collectionName, document) => {
   const collection = db.collection(collectionName)
-  return new Promise((resolve, reject) =>{
+  return new Promise((resolve, reject) => {
     collection.insert(document, (err, doc) => {
-      if(err){
+      if (err) {
         reject(err)
-      }else{
+      } else {
         resolve(doc)
       }
     })
@@ -82,9 +92,9 @@ app.post('/nova-operacao', async (req, res) => {
 })
 
 MongoClient.connect(mongoUri, (err, db) => {
-  if(err){
+  if (err) {
     return
-  }else{
+  } else {
     app.db = db
     app.listen(port, () => console.log('Server running...'))
   }
