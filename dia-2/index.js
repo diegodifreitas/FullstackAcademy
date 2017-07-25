@@ -106,6 +106,23 @@ app.post('/nova-operacao', async (req, res) => {
   res.redirect('/operacoes')
 })
 
+//Exercicio 4
+app.get('/contas', async (req, res) => {
+  const contas = await findAll(app.db, 'contas')
+  res.render('contas', { contas })
+})
+app.get('/nova-conta', (req, res) => res.render('nova-conta'))
+app.post('/nova-conta', async (req, res) => {
+  const { descricao, valorEstimado, diaVencimento } = req.body
+  const conta = {
+    descricao: descricao,
+    valorEstimado: parseFloat(valorEstimado),
+    diaVencimento: parseInt(diaVencimento)
+  }
+  const newConta = await insert(app.db, 'contas', conta)
+  res.redirect('/contas')
+})
+
 MongoClient.connect(mongoUri, (err, db) => {
   if (err) {
     return

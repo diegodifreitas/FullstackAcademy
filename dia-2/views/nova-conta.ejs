@@ -1,0 +1,21 @@
+<% include header %>
+<div class="container">
+  <h2>Nova Conta</h2>
+  
+  <form method="POST">
+    <div class="block">
+      <label>Descrição: </label>
+      <input type="text" name="descricao">
+    </div>
+    <div class="block">
+      <label> Valor:</label>
+      <input type="text" name="valorEstimado">
+    </div>
+    <div class="block">
+      <label> Dia de Vencimento:</label>
+      <input type="number" name="diaVencimento">
+    </div>
+    <button type="submit">Cadastrar</button>
+  </form>
+</div>
+  <% include footer %>
