@@ -26,25 +26,25 @@ app.get('/', (req, res) => {
 app.get('/calculadora', (req, res) => {
 
   const calculoJuros = (p, i, n) => p * Math.pow(1 + i, n)
+  const evolucao = (valorInicial, qtdMeses, taxa) => {
+    const meses = Array.from(new Array(qtdMeses), (qtdMeses, i) => i + 1)
+    return (meses.map(mes => ({
+      mes: mes,
+      juros: calculoJuros(valorInicial, taxa / 100, mes)
+    }))
+    )
+  }
 
   const resultado = { calculado: false }
 
   let { valorInicial, taxa, tempo } = req.query
 
   if (valorInicial && taxa && tempo) {
-    resultado.calculado = true
-
     valorInicial = parseFloat(valorInicial)
     taxa = parseFloat(taxa)
     tempo = parseFloat(tempo)
-
-    const meses = Array.from(new Array(tempo), (tempo, i) => i)
-
-    resultado.valores = meses.map(mes => ({
-      mes: ++mes,
-      valor: calculoJuros(valorInicial, taxa / 100, ++mes)
-    }))
-
+    resultado.evolucao = evolucao(valorInicial, tempo, taxa)
+    resultado.calculado = true
   }
   res.render('calculadora', { resultado })
 })

@@ -26,13 +26,13 @@
           <th>Valor</th>
         </thead>
         <tbody>
-          <% resultado.valores.forEach( (item) => { %>
+          <% resultado.evolucao.forEach( (item) => { %>
             <tr>
               <td>
                 <%= item.mes %>
               </td>
               <td> R$
-                <%= item.valor.toFixed(2) %>
+                <%= item.juros.toFixed(2) %>
               </td>
             </tr>
             <% })  %>
@@ -40,4 +40,4 @@
       </table>
     <% } %>
 </div>
-      <% include footer %>
+<% include footer %>
