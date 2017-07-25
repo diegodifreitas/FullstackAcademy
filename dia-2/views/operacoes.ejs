@@ -1,7 +1,39 @@
 <% include header %>
-      <h2>Operações</h2>
-      <% operacoes.forEach((operacao) => { %>
-        <p><%=operacao.descricao %> R$ <%=operacao.valor %></p>
+<% let subTotal = 0 %>
+<div class="container">
+<h2>Operações</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Valor</th>
+        <th>Sub-total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% operacoes.forEach( operacao => { 
+           subTotal += operacao.valor
+      %>
+        <tr>
+          <td><%= operacao.descricao %></td>
+          <td> R$  <%= operacao.valor.toFixed(2) %> </td>
+          <td> R$  <%= subTotal.toFixed(2) %> </td>
+        </tr>
       <% }) %>
-      
+    <tbody>
+    <tfoot>
+      <tr>
+        <td></td>
+        <td> Saldo </td>
+        <td> R$ <%= subTotal.toFixed(2) %> </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<!-- <% operacoes.forEach((operacao) => { %>
+        <p><%=operacao.descricao %> R$ <%=operacao.valor %></p>
+      <% }) %> -->
+
 <% include footer %>
