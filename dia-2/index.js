@@ -38,13 +38,13 @@ app.get('/calculadora', (req, res) => {
     taxa = parseFloat(taxa)
     tempo = parseFloat(tempo)
 
-    const meses = Array.from(new Array(tempo), (tempo, i) =>  i )
+    const meses = Array.from(new Array(tempo), (tempo, i) => i)
 
-    resultado.valores = meses.map( mes => ({
+    resultado.valores = meses.map(mes => ({
       mes: ++mes,
       valor: calculoJuros(valorInicial, taxa / 100, ++mes)
     }))
-    
+
   }
   res.render('calculadora', { resultado })
 })
@@ -77,8 +77,22 @@ const insert = (db, collectionName, document) => {
 
 
 app.get('/operacoes', async (req, res) => {
-  const operacoes = await findAll(app.db, 'operacoes')
-  res.render('operacoes', { operacoes })
+  let operacoes = await findAll(app.db, 'operacoes')
+  const { filtro } = req.query
+  if (filtro) {
+    switch (filtro) {
+      case 'entradas':
+        operacoes = operacoes.filter(o => o.valor > 0)
+        res.render('operacoes', { titulo: 'de Entrada', operacoes })
+      case 'saidas':
+        operacoes = operacoes.filter(o => o.valor < 0)
+        res.render('operacoes', { titulo: 'de Saida', operacoes })
+      default:
+        break
+    }
+  } else {
+    res.render('operacoes', { titulo: 'Gerais', operacoes })
+  }
 })
 
 // mostrar formulario
