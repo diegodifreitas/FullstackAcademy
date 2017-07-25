@@ -12,26 +12,34 @@ body{
   padding: 10px;
 }
 
-header{
-  min-height: 60px;
-  position: relative;
-  top: 0;
-  right: 0;
-  left: 0;
-  border-bottom: 1px solif #ccc;
-  background: #ECECEC;
-  z-index: 2;
-}
-
 .resultado{
-  width: 300px;
   margin: 0 auto;
-  background: orange;
-  text-align: center;
   padding: 15px;
   border-radius: 10px;
 }
 
+/* ESTILO DAS TABELAS */
+table {
+    border-collapse: collapse;
+    width: 25%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* ESTILO DA BARRA DE NAVEGAÇÃO */
+header{
+  background: #ECECEC;
+}
 
 ul.topnav{
   list-style-type: none;
@@ -52,7 +60,13 @@ ul.topnav li a {
 
 ul.topnav li a:hover { background-color: orange; }
 
+@media screen and (max-width: 767px ) { 
+  ul.topnav li.rigth,
+  ul.topnav li {float:none}
+}
 
+
+/* ESTILOS DOS ELEMENTOS DO FORMULÁRIO */
 label{
   display: inline-block;
   width: 140px;
@@ -81,9 +95,4 @@ button {
 
 form{
   width: 350px;
-}
-
-@media screen and (max-width: 767px ) { 
-  ul.topnav li.rigth,
-  ul.topnav li {float:none}
 }

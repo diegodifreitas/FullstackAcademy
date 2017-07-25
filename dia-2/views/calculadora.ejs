@@ -19,30 +19,26 @@
   </form>
 
   <% if(resultado.calculado){ %>
-    <table>
-      <thead>
-        <th>Mês</th>
-        <th>Valor</th>
-      </thead>
-      <tbody>
-        <% var i = 0 %>
-          <% resultado.valores.map( (x) => { %>
+    <div class="resultado">
+      <h3> Resultado </h3>
+      <table>
+        <thead>
+          <th>Mês</th>
+          <th>Valor</th>
+        </thead>
+        <tbody>
+          <% resultado.valores.forEach( (item) => { %>
             <tr>
               <td>
-                <%= i++ %>
+                <%= item.mes %>
               </td>
-              <td>
-                <%= x.toFixed(2) %>
+              <td> R$
+                <%= item.valor.toFixed(2) %>
               </td>
             </tr>
             <% })  %>
-      </tbody>
-    </table>
-    <div class="resultado">
-      <h2>Resultado</h2>
-      <p>R$
-        <%= resultado.total.toFixed(2) %>
-      </p>
+        </tbody>
+      </table>
     </div>
     <% } %>
       <% include footer %>

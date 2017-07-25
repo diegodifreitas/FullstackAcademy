@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express')
 const app = express()
 const port = 3000
@@ -6,7 +8,7 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
 
 const MongoClient = require('mongodb').MongoClient
-const mongoUri = 'mongodb://sysdba:12345@my-money-shard-00-00-l9y4l.mongodb.net:27017,my-money-shard-00-01-l9y4l.mongodb.net:27017,my-money-shard-00-02-l9y4l.mongodb.net:27017/<DATABASE>?ssl=true&replicaSet=my-money-shard-0&authSource=admin'
+const mongoUri = `mongodb://${process.env.DB_MONGO_USER}:${process.env.DB_MONGO_PASSWORD}@my-money-shard-00-00-l9y4l.mongodb.net:27017,my-money-shard-00-01-l9y4l.mongodb.net:27017,my-money-shard-00-02-l9y4l.mongodb.net:27017/<DATABASE>?ssl=true&replicaSet=my-money-shard-0&authSource=admin`
 
 app.use(express.static('public'))
 
@@ -21,28 +23,27 @@ app.get('/', (req, res) => {
   res.render('home')
 })
 
-const calculoJuros = (p, i, n) => p * Math.pow(1 + i, n)
-
 app.get('/calculadora', (req, res) => {
-  const resultado = {
-    calculado: false
-  }
 
-  if (req.query.valorInicial && req.query.taxa && req.query.tempo) {
+  const calculoJuros = (p, i, n) => p * Math.pow(1 + i, n)
+
+  const resultado = { calculado: false }
+
+  let { valorInicial, taxa, tempo } = req.query
+
+  if (valorInicial && taxa && tempo) {
     resultado.calculado = true
 
-    const x = parseFloat(req.query.tempo) + 1
-    resultado.valores = Array.from(new Array(x), (x, i) => resultado.total = calculoJuros(
-      parseFloat(req.query.valorInicial),
-      parseFloat(req.query.taxa) / 100,
-      i
-    ))
+    valorInicial = parseFloat(valorInicial)
+    taxa = parseFloat(taxa)
+    tempo = parseFloat(tempo)
 
-/*     resultado.total = calculoJuros(
-      parseFloat(req.query.valorInicial),
-      parseFloat(req.query.taxa) / 100,
-      parseInt(req.query.tempo)
-    ) */
+    const meses = Array.from(new Array(tempo), (tempo, i) =>  i )
+
+    resultado.valores = meses.map( mes => ({
+      mes: ++mes,
+      valor: calculoJuros(valorInicial, taxa / 100, ++mes)
+    }))
     
   }
   res.render('calculadora', { resultado })
