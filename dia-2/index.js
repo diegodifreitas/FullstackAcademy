@@ -8,7 +8,7 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
 
 const MongoClient = require('mongodb').MongoClient
-const mongoUri = `mongodb://${process.env.DB_MONGO_USER}:${process.env.DB_MONGO_PASSWORD}@my-money-shard-00-00-l9y4l.mongodb.net:27017,my-money-shard-00-01-l9y4l.mongodb.net:27017,my-money-shard-00-02-l9y4l.mongodb.net:27017/<DATABASE>?ssl=true&replicaSet=my-money-shard-0&authSource=admin`
+const mongoUri = process.env.DB_MONGO_URI
 
 app.use(express.static('public'))
 
