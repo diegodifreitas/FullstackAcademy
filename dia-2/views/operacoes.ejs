@@ -1,39 +1,46 @@
 <% include header %>
 <% let subTotal = 0 %>
-<div class="container">
-<h2>Operações <%= titulo %></h2>
-  <p> <b>Filtrar por:</b> 
-     <a href="/operacoes">Todas</a>
-     <a href="/operacoes?filtro=entradas">Entradas</a>
-     <a href="/operacoes?filtro=saidas">Saídas</a>
-  </p>
-  <table>
-    <thead>
-      <tr>
-        <th>Descrição</th>
-        <th>Valor</th>
-        <th>Sub-total</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% operacoes.forEach( operacao => { 
-           subTotal += operacao.valor
-      %>
+<div class="item">
+  <div class="titulo">
+    <h2>Operações <%= titulo %></h2>
+  </div>
+  <div class="filtros">
+    <p>
+      <b>Filtrar por:</b> 
+      <a href="/operacoes">Todas</a>
+      <a href="/operacoes?filtro=entradas">Entradas</a>
+      <a href="/operacoes?filtro=saidas">Saídas</a>
+    </p>
+  <div>
+  <div class="body">
+    <table>
+      <thead>
         <tr>
-          <td><%= operacao.descricao %></td>
-          <td> R$  <%= operacao.valor.toFixed(2) %> </td>
-          <td> R$  <%= subTotal.toFixed(2) %> </td>
+          <th>Descrição</th>
+          <th>Valor</th>
+          <th>Sub-total</th>
         </tr>
-      <% }) %>
-    <tbody>
-    <tfoot>
-      <tr>
-        <td></td>
-        <td> Saldo </td>
-        <td> R$ <%= subTotal.toFixed(2) %> </td>
-      </tr>
-    </tfoot>
-  </table>
+      </thead>
+      <tbody>
+        <% operacoes.forEach( operacao => { 
+            subTotal += operacao.valor
+        %>
+          <tr>
+            <td><%= operacao.descricao %></td>
+            <td> R$  <%= operacao.valor.toFixed(2) %> </td>
+            <td> R$  <%= subTotal.toFixed(2) %> </td>
+          </tr>
+        <% }) %>
+      <tbody>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td><b> Saldo </b></td>
+          <td><b> R$ <%= subTotal.toFixed(2) %> </b></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
 </div>
 
 <% include footer %>

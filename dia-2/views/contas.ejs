@@ -1,26 +1,29 @@
 <% include header %>
 
-<div class="container">
-<h2>Contas</h2>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Descrição</th>
-        <th>Valor</th>
-        <th>Dia de Vencimento</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% contas.forEach( conta => {  %>
+<div class="item">
+  <div class="titulo">
+    <h2>Contas</h2>
+  </div>
+  <div class="body">
+    <table>
+      <thead>
         <tr>
-          <td><%= conta.descricao %></td>
-          <td> R$  <%= conta.valorEstimado.toFixed(2) %> </td>
-          <td> <%= conta.diaVencimento %> </td>
+          <th>Descrição</th>
+          <th>Valor</th>
+          <th>Dia de Vencimento</th>
         </tr>
-      <% }) %>
-    <tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% contas.forEach( conta => {  %>
+          <tr>
+            <td><%= conta.descricao %></td>
+            <td> R$  <%= conta.valorEstimado.toFixed(2) %> </td>
+            <td> <%= conta.diaVencimento %> </td>
+          </tr>
+        <% }) %>
+      <tbody>
+    </table>
+  </div>
 </div>
 
 <% include footer %>

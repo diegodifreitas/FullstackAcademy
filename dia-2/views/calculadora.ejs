@@ -1,43 +1,44 @@
 <% include header %>
-<div class="container">
-  <h2>Calculadora</h2>
+  <div class="titulo">
+    <h2>Calculadora</h2>
+  </div>
+  <div class="body">
+    <form method="GET">
+      <div class="block">
+        <label>Valor inicial: </label>
+        <input type="text" name="valorInicial" />
+      </div>
+      <div class="block">
+        <label>Taxa a.m.:</label>
+        <input type="text" name="taxa" />
+      </div>
+      <div class="block">
+        <label>Quantos meses: </label>
+        <input type="text" name="tempo" />
+      </div>
+      <button type="submit">Calcular</button>
+    </form>
 
-  <form method="GET">
-    <div class="block">
-      <label>Valor inicial: </label>
-      <input type="text" name="valorInicial" />
+    <% if(resultado.calculado){ %>
+        <h3> Resultado </h3>
+        <table>
+          <thead>
+            <th>Mês</th>
+            <th>Valor</th>
+          </thead>
+          <tbody>
+            <% resultado.evolucao.forEach( (item) => { %>
+              <tr>
+                <td>
+                  <%= item.mes %>
+                </td>
+                <td> R$
+                  <%= item.juros.toFixed(2) %>
+                </td>
+              </tr>
+              <% })  %>
+          </tbody>
+        </table>
+      <% } %>
     </div>
-    <div class="block">
-      <label>Taxa a.m.:</label>
-      <input type="text" name="taxa" />
-    </div>
-    <div class="block">
-      <label>Quantos meses: </label>
-      <input type="text" name="tempo" />
-    </div>
-    <button type="submit">Calcular</button>
-  </form>
-
-  <% if(resultado.calculado){ %>
-      <h3> Resultado </h3>
-      <table>
-        <thead>
-          <th>Mês</th>
-          <th>Valor</th>
-        </thead>
-        <tbody>
-          <% resultado.evolucao.forEach( (item) => { %>
-            <tr>
-              <td>
-                <%= item.mes %>
-              </td>
-              <td> R$
-                <%= item.juros.toFixed(2) %>
-              </td>
-            </tr>
-            <% })  %>
-        </tbody>
-      </table>
-    <% } %>
-</div>
 <% include footer %>

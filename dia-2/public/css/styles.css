@@ -3,25 +3,42 @@ body{
   font-family: sans-serif;
 }
 
-.logo{
-  width: 200px;
-  height: 80px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+.cabecalho-logo{
+  height: 150px;
   padding: 10px;
+  text-align: center;
+  background-color: #314a06;
 }
 
-.container{
+.img-logo{
+  height: 130px;
+}
+  
+.content{
+  height: 500px;
   margin: 0 auto;
   padding: 15px;
-  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.item{
+  width: 50%;
+  color: black;
+
+  flex: 0 1 auto; /* resumo das tags abaixo */
+  /* flex-grow: 0; /* Ocupa o resto da largura da div */
+  /* flex-shrink: 1; /* encolhe a div */
+  /* flex-basis: auto; /* define um width de cada elemento caso não tenha */
 }
 
 /* ESTILO DAS TABELAS */
 table {
     border-collapse: collapse;
-    width: 30%;
+    width: 100%;
 }
 
 th, td {
@@ -32,39 +49,47 @@ th, td {
 tr:nth-child(even){background-color: #f2f2f2}
 
 th {
-    background-color: #4CAF50;
+    background-color: green;
     color: white;
 }
 
 /* ESTILO DA BARRA DE NAVEGAÇÃO */
-header{
-  background: #ECECEC;
-}
-
-ul.topnav{
-  list-style-type: none;
-  margin: 0px;
-  padding: 0;
-  overflow: hidden;
-  background-color: green;
-  
-}
-ul.topnav li { float: left;  }
-ul.topnav li a {
-  display: block;
-  color: white;
+.navbar{
   text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+  background: green;
+  vertical-align: middle;
+  width: auto;
+  z-index: 1;
+  box-shadow:1px 1px 7px rgba(0, 0, 0, 0.25);
+}
+.navbar ul {
+  display: inline-flex;
 }
 
-ul.topnav li a:hover { background-color: orange; }
+.navbar ul li {
+  margin: -16px 0px -16px 0;
+  list-style-type: none;
+  padding: 20px;
+}
+
+.navbar ul a {
+  text-decoration: none;
+  color: white;
+}
+
+ul li:hover {
+    color:#fff;
+    background-color: #314a06;
+}
 
 @media screen and (max-width: 767px ) { 
-  ul.topnav li.rigth,
-  ul.topnav li {float:none}
+  .navbar ul { 
+    display: inline; 
+    align-items: center; 
+    flex-direction: column;
+    margin-top: 0px;
+  }
 }
-
 
 /* ESTILOS DOS ELEMENTOS DO FORMULÁRIO */
 label{
@@ -82,17 +107,16 @@ button {
     text-align: center;
     margin: 4px 2px;
     cursor: pointer;
-    width: 70px;
+    width: 90px;
 }
-  form button{
-    margin-left: auto;
-    margin-top: 20px;
-    display: block;
-  }
-  form input{
-    margin-top: 5px;
-  }
-
+form button{
+  margin-left: auto;
+  margin-top: 20px;
+  display: block;
+}
+form input{
+  margin-top: 5px;
+}
 form{
   width: 350px;
 }
