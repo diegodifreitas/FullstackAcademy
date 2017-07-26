@@ -62,6 +62,20 @@ const findAll = (db, collectionName) => {
   })
 }
 
+const find = (db, collectionName, conditions) => {
+  const collection = db.collection(collectionName)
+  const cursor = collection.find(conditions)
+  const documents = []
+
+  return new Promise((resolve, reject) => {
+    cursor.forEach(
+      (doc) => documents.push(doc),
+      () => resolve(documents)
+    )
+  })
+}
+
+
 const insert = (db, collectionName, document) => {
   const collection = db.collection(collectionName)
   return new Promise((resolve, reject) => {
@@ -77,22 +91,29 @@ const insert = (db, collectionName, document) => {
 
 
 app.get('/operacoes', async (req, res) => {
-  let operacoes = await findAll(app.db, 'operacoes')
+  let conditions = {}
+  let titulo = "Gerais"
   const { filtro } = req.query
   if (filtro) {
     switch (filtro) {
       case 'entradas':
-        operacoes = operacoes.filter(o => o.valor > 0)
-        res.render('operacoes', { titulo: 'de Entrada', operacoes })
+        titulo = " de Entrada"
+        conditions = {
+          valor: { $gte: 0 } //greater then equal
+        }
+        break
       case 'saidas':
-        operacoes = operacoes.filter(o => o.valor < 0)
-        res.render('operacoes', { titulo: 'de Saida', operacoes })
+        titulo = " de Saída"
+        conditions = {
+          valor: { $lt: 0 } //less then
+        }
+        break
       default:
         break
     }
-  } else {
-    res.render('operacoes', { titulo: 'Gerais', operacoes })
   }
+  const operacoes = await find(app.db, 'operacoes', conditions)
+  res.render('operacoes', { titulo: titulo, operacoes })
 })
 
 // mostrar formulario
