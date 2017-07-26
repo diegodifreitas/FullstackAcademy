@@ -2,7 +2,11 @@
 <% let subTotal = 0 %>
 <div class="container">
 <h2>Operações <%= titulo %></h2>
-
+  <p> <b>Filtrar por:</b> 
+     <a href="/operacoes">Todas</a>
+     <a href="/operacoes?filtro=entradas">Entradas</a>
+     <a href="/operacoes?filtro=saidas">Saídas</a>
+  </p>
   <table>
     <thead>
       <tr>
@@ -31,9 +35,5 @@
     </tfoot>
   </table>
 </div>
-
-<!-- <% operacoes.forEach((operacao) => { %>
-        <p><%=operacao.descricao %> R$ <%=operacao.valor %></p>
-      <% }) %> -->
 
 <% include footer %>
